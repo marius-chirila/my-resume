@@ -1,2 +1,7 @@
 # my-resume
-Resume for gcp acloudguru challenge
+Resume for #gcpacloudguruchallenge
+
+## frontend
+- contains main html/css/js
+## backend
+- contains api for calling
