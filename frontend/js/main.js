@@ -1,8 +1,8 @@
 window.addEventListener('DOMContentLoaded', (event) => {
-    getVisitorCount();
+    VisitorCount();
 });
 
-const getVisitorCount = () => {
+const VisitorCount = () => {
     let count = 1;
     document.getElementById('counting').innerText = count;
     return count;
