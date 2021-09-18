@@ -16,7 +16,7 @@ todo_ref = db.collection('visitors').document('counting')
 def update():
   try:
     todo_ref.update({"count": firestore.Increment(1)})
-    return f"Success"
+    return jsonify({"success": True})
   except Exception as e:
     return f"An Error Occured: {e}"
 
