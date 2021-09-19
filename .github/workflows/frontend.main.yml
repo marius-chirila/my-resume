@@ -12,8 +12,8 @@ env:
   GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
 
 jobs:
-  setup-build-deploy:
-    name: Setup, Build, and Deploy
+    deploy:
+    name: DeployFrontEnd
     runs-on: ubuntu-latest
 
     steps:
@@ -21,12 +21,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup - gcloud / gsutil
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@master
       with:
         service_account_key: ${{ secrets.GCS_SA_KEY }}
         project_id: ${{ secrets.GCS_PROJECT }}
         export_default_credentials: true
 
-    - name: Deploy
+    - name: DeployFrontEnd
       run: |-
         gsutil -m rsync -R frontend gs://$GCS_BUCKET
