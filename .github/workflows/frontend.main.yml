@@ -12,7 +12,7 @@ env:
   GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
 
 jobs:
-    deploy:
+  deploy:
     name: Deploy
     runs-on: ubuntu-latest
 
