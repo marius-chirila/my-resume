@@ -10,6 +10,7 @@ on:
 
 env:
   GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+  GCP_LB: ${{ secrets.GCP_LB }}
 
 jobs:
   deploy:
@@ -30,3 +31,7 @@ jobs:
     - name: Deploy
       run: |-
         gsutil -m rsync -R frontend gs://$GCS_BUCKET
+    
+    - name: Invalidate
+      run: |-
+        gcloud compute url-maps invalidate-cdn-cache $GCP_LB --path "/*" --async
