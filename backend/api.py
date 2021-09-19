@@ -4,9 +4,12 @@
 import os
 from flask import Flask, request, jsonify
 from google.cloud import firestore
+from flask_cors import CORS
+
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Initialize Firestore DB
 db = firestore.Client()
