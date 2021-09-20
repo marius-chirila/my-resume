@@ -8,3 +8,4 @@ RUN pip install --upgrade google-cloud-firestore
 RUN pip install flask-cors
 ENTRYPOINT ["python"]
 CMD ["api.py"]
+RUN test_api.py
