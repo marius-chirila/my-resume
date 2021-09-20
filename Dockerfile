@@ -1,7 +1,7 @@
 # Dockerfile
 FROM python:3.9-slim
 RUN apt-get update -y
-COPY /backend /app
+COPY /backend/api /app
 WORKDIR /app
 RUN pip install Flask
 RUN pip install --upgrade google-cloud-firestore
