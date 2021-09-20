@@ -15,6 +15,7 @@ CORS(app)
 db = firestore.Client()
 todo_ref = db.collection('visitors').document('counting')
 
+# Increment
 @app.route('/', methods=['POST', 'PUT'])
 def update():
   try:
