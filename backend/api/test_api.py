@@ -2,6 +2,7 @@ import os
 import unittest
 from api import app    
 
+#testing content type delivered
 class FlaskTest(unittest.TestCase):
     def test_get(self):
        tester = app.app.test_client(self)
