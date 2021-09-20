@@ -6,6 +6,6 @@ WORKDIR /app
 RUN pip install Flask
 RUN pip install --upgrade google-cloud-firestore
 RUN pip install flask-cors
-RUN python3 test_api.py
+## RUN python3 test_api.py
 ENTRYPOINT ["python"]
 CMD ["api.py"]
