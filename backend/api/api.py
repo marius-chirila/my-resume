@@ -7,15 +7,15 @@ from google.cloud import firestore
 from flask_cors import CORS
 
 
-# Initialize Flask app
+# Initialize Flask app #
 app = Flask(__name__)
 CORS(app)
 
-# Initialize Firestore DB
+# Initialize Firestore DB # 
 db = firestore.Client()
 todo_ref = db.collection('visitors').document('counting')
 
-# Increment
+# Increment #
 @app.route('/', methods=['POST', 'PUT'])
 def update():
   try:
