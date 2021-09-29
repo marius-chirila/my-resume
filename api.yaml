@@ -3,13 +3,13 @@ steps:
     args:
       - build
       - '-t'
-      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE:$SHORT_SHA
       - .
     id: Building container
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE:$SHORT_SHA
     id: Pushing container to Artifact Registry
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Clone env repository
