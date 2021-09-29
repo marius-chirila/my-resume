@@ -11,20 +11,40 @@ steps:
       - push
       - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
     id: Pushing container to Artifact Registry
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args:
-      - run
-      - deploy
-      - myapi
-      - '--image'
-      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
-      - '--region'
-      - europe-west3
-      - '--allow-unauthenticated'
-      - '--platform'
-      - managed
-    id: Run container
-    entrypoint: gcloud
+# This step clones the environment repo   
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Clone env repository
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    gcloud source repos clone environment && \
+    cd environment && \
+    git checkout candidate && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+# This step generates the new manifest
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" cloudbuild.yaml.tpl | \
+     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > environment/cloudbuild.yaml
+# This step pushes the manifest back to environment
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Push manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    set -x && \
+    cd environment && \
+    git add kubernetes.yaml && \
+    git commit -m "Deploying image gcr.io/${PROJECT_ID}/hello-cloudbuild:${SHORT_SHA}
+    Built from commit ${COMMIT_SHA} of repository myresumeonline-backend
+    Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+    git push origin candidate
 images:
   - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
 logsBucket: 'gs://myresumeonline_cloudbuild'
