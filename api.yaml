@@ -37,8 +37,8 @@ steps:
     - |
       set -x && \
       cd environment && \
-      git add kubernetes.yaml && \
-      git commit -m "Deploying image gcr.io/${PROJECT_ID}/hello-cloudbuild:${SHORT_SHA}
+      git add cloudbuild.yaml && \
+      git commit -m "Deploying image europe-west3-docker.pkg.dev/${PROJECT_ID}/resume-repo:${SHORT_SHA}
       Built from commit ${COMMIT_SHA} of repository myresumeonline-backend
       Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
       git push origin candidate
