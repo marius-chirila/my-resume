@@ -1,0 +1,27 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - run
+      - deploy
+      - myapi
+      - '--image'
+      - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+      - '--region'
+      - europe-west3
+      - '--allow-unauthenticated'
+      - '--platform'
+      - managed
+    entrypoint: gcloud
+images:
+  - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+logsBucket: 'gs://myresumeonline_cloudbuild'
