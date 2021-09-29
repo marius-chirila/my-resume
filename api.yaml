@@ -27,7 +27,7 @@ steps:
     args:
     - '-c'
     - |
-      sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" cloudbuild.yaml.tpl | \
+      sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" environment/cloudbuild.yaml.tpl | \
       sed "s/COMMIT_SHA/${SHORT_SHA}/g" > environment/cloudbuild.yaml
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Push manifest
