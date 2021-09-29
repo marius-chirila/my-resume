@@ -189,6 +189,10 @@
     color: #00cab9 !important;
   }
 
+  .fa-pencil-square-o:hover {
+    color: #00cab9 !important;
+  }
+
   img {
     border-radius: 8px;
     border-width: 2px;
