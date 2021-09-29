@@ -5,10 +5,12 @@ steps:
       - '-t'
       - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
       - .
+    id: Building container
   - name: gcr.io/cloud-builders/docker
     args:
       - push
       - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
+    id: Pushing container to Artifact Registry
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - run
@@ -21,6 +23,7 @@ steps:
       - '--allow-unauthenticated'
       - '--platform'
       - managed
+    id: Run container
     entrypoint: gcloud
 images:
   - europe-west3-docker.pkg.dev/$PROJECT_ID/resume-repo/$_IMAGE
