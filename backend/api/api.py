@@ -1,6 +1,6 @@
 # app.py
 
-# Required imports
+# Required imports #
 import os
 from flask import Flask, request, jsonify
 from google.cloud import firestore
