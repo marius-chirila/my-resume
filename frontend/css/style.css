@@ -273,6 +273,19 @@
     color: azure;
     font-weight: 500;
   }
+
+  details > summary:hover {
+    color: #00cab9;
+    cursor: pointer;
+    transition: max-height 0.2s ease-out;
+    overflow: hidden
+  }
+
+  details > summary:after {
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+  }
+  
   
   
   @media only screen and (max-width: 430px) {
